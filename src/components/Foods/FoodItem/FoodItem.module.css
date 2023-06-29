@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.meal {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.meal h3 {
+  margin: 0 0 0.25rem 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.description {
+  font-style: italic;
+  color: #666;
+}
+
+.price {
+  margin-top: 0.25rem;
+  font-weight: bold;
+  color: #f86a62;
+  font-size: 1.25rem;
+}
+
+.meal p {
+  margin: 8px 0px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
