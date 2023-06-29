@@ -5,7 +5,7 @@ import HeroImage from "./HeroImage";
 function Header(props) {
   return (
     <>
-      <MenuBar />
+      <MenuBar onShowCart={props.onShowCart} />
       <HeroImage />
     </>
   );

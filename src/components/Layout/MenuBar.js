@@ -10,7 +10,7 @@ function MenuBar(props) {
         <img src={icon} alt="#" className={classes.icon} />
         <h1>Eatzo</h1>
       </div>
-      <CartButton />
+      <CartButton onClick={props.onShowCart} />
     </header>
   );
 }
