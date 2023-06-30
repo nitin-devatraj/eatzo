@@ -86,6 +86,7 @@ function FoodsList() {
           {DUMMY_MEALS.map((item) => (
             <FoodItem
               key={item.id}
+              id={item.id}
               name={item.name}
               description={item.description}
               price={item.price}
