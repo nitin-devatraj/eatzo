@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./HeroImage.module.css";
-import heroImage from "../../assets/hero-image2.jpg";
+import heroImage from "../../assets/hero-image.svg";
 
 function HeroImage(props) {
   return (
