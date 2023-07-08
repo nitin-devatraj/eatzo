@@ -4,8 +4,11 @@ import Modal from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import Spinner from "../UI/Spinner";
 
 function Cart(props) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
   const [onCheckout, setOnCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -21,14 +24,18 @@ function Cart(props) {
     setOnCheckout(true);
   };
 
-  const orderSubmitHandler = (userData) => {
-    fetch(
+  const orderSubmitHandler = async (userData) => {
+    setIsSubmitting(true);
+    await fetch(
       "https://eatzo-ac631-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
       {
         method: "POST",
         body: JSON.stringify({ user: userData, orderedItems: cartCtx.items }),
       }
     );
+    setIsSubmitting(false);
+    setDidSubmit(true);
+    cartCtx.clearCart();
   };
 
   const modalActions = (
@@ -43,8 +50,9 @@ function Cart(props) {
       )}
     </div>
   );
-  return (
-    <Modal>
+
+  const modalCartContent = (
+    <>
       <div>
         <ul className={classes["cart-items"]}>
           {cartCtx.items.map((item) => (
@@ -67,6 +75,23 @@ function Cart(props) {
         <Checkout onConfirm={orderSubmitHandler} onCancel={props.onCloseCart} />
       )}
       {!onCheckout && modalActions}
+    </>
+  );
+
+  return (
+    <Modal>
+      {!isSubmitting && !didSubmit && modalCartContent}
+      {isSubmitting && <Spinner />}
+      {didSubmit && (
+        <>
+          <p className={classes.successful}>Order Submitted successfully 🎉</p>
+          <div className={classes.actions}>
+            <button className={classes.button} onClick={props.onCloseCart}>
+              Close
+            </button>
+          </div>
+        </>
+      )}
     </Modal>
   );
 }

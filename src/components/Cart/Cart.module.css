@@ -48,3 +48,9 @@
 .actions .button:hover {
   transform: translate(2px);
 }
+
+.successful {
+  text-align: center;
+  font-size: 25px;
+  color: #333;
+}
