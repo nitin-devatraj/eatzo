@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px;
+  color: inherit;
+}
+
+.control {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.control label {
+  color: #f86a62;
+}
+
+.control input {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  height: 22px;
+}
+
+.control input:focus {
+  outline: none;
+}
+
+.actions {
+  text-align: right;
+}
+
+.actions button {
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #f86a62;
+  padding: 0.5rem 2rem;
+  border-radius: 15px;
+  margin-left: 1rem;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #f86a62;
+  border-color: #f86a62;
+  color: white;
+}
+
+.actions .button--alt {
+  color: #f86a62;
+}
+
+.actions .button {
+  background-color: #f86a62;
+  color: white;
+}
+
+.actions .button:hover {
+  transform: translate(2px);
+}
+
+.invalid {
+  color: #777;
+  margin: 5px 0px 12px;
+}
+
+@media screen and (max-width: 667px) {
+  .control {
+    width: 90%;
+  }
+}

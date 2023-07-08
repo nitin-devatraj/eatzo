@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 function Cart(props) {
+  const [onCheckout, setOnCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -14,6 +16,33 @@ function Cart(props) {
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
+
+  const orderHandler = () => {
+    setOnCheckout(true);
+  };
+
+  const orderSubmitHandler = (userData) => {
+    fetch(
+      "https://eatzo-ac631-default-rtdb.europe-west1.firebasedatabase.app/orders.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ user: userData, orderedItems: cartCtx.items }),
+      }
+    );
+  };
+
+  const modalActions = (
+    <div className={classes.actions}>
+      <button className={classes["button--alt"]} onClick={props.onCloseCart}>
+        Close
+      </button>
+      {hasItems && (
+        <button className={classes.button} onClick={orderHandler}>
+          Order
+        </button>
+      )}
+    </div>
+  );
   return (
     <Modal>
       <div>
@@ -34,12 +63,10 @@ function Cart(props) {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button className={classes["button--alt"]} onClick={props.onCloseCart}>
-          Close
-        </button>
-        {hasItems && <button className={classes.button}>Order</button>}
-      </div>
+      {onCheckout && (
+        <Checkout onConfirm={orderSubmitHandler} onCancel={props.onCloseCart} />
+      )}
+      {!onCheckout && modalActions}
     </Modal>
   );
 }
